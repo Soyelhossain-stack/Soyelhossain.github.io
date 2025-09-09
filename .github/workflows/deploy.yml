@@ -1,25 +1,32 @@
-name: Deploy Website
+name: Deploy Portfolio Site
 
 on:
   push:
-    branches: [main]   # Trigger only on main branch
+    branches: [main]   # trigger only on main branch
     paths:
-      - "index.html"   # Re-deploy if index.html changes
-      - "images/**"    # Re-deploy if anything inside images/ changes
-      - ".github/workflows/deploy.yml" # Re-deploy if workflow changes
+      - "index.html"
+      - "css/**"
+      - "fonts/**"
+      - "images/**"
+      - "js/**"
+      - "lib/**"
+      - "scss/**"
+      - ".github/workflows/deploy.yml"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .   # root directory (contains index.html and images/)
+          publish_dir: .   # publish everything in repo root
+          exclude_assets: |
+            .DS_Store
+            prepros-6.config
+
