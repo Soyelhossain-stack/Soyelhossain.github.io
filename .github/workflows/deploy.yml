@@ -2,7 +2,7 @@ name: Deploy Portfolio Site
 
 on:
   push:
-    branches: [main]   # trigger only on main branch
+    branches: [main]
     paths:
       - "index.html"
       - "css/**"
@@ -25,7 +25,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .   # publish everything in repo root
+          publish_branch: gh-pages   # explicitly set the branch for Pages
+          publish_dir: .             # adjust if you add a build step later
           exclude_assets: |
             .DS_Store
             prepros-6.config
